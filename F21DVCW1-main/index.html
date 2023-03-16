@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="index.css" />
+  <script type="text/javascript" src="https://d3js.org/d3.v7.min.js"></script>
+  <script type="module" src="bubbleMap.js"></script>
+  <script type="module" src="lineChartDynamic.js"></script>
+  <script type="module" src="lineChartUpdate.js"></script>
+  <script type="module" src="barChart.js"></script>
+  <script type="module" src="updateBarChart.js"></script>
+  <script type="module" src="scatterPlot.js"></script>
+
+  <title>F20DV dashboard</title>
+</head>
+<body>
+  <div id="sidebar">
+    <h1>F20DV Covid Data Visualisation</h1>
+    <div id="button-container">
+      <button id="total-cases-btn">Total cases</button>
+      <button id="total-vaccinations-btn">Total vaccinations</button>
+      <button id="total-boosters-btn">Total boosters</button>
+      <button id="total-deaths-btn">Total deaths</button>
+      <button id="total-cases-per-million-btn">Total cases per million</button>
+      <button id="people-vaccinated-btn">People vaccinated</button>
+      <button id="people-fully-vaccinated-btn">People fully vaccinated</button>
+      <button id="new-cases-smoothed-btn">New cases smoothed</button>
+      <button id="new-deaths-smoothed-btn">New deaths smoothed</button>
+    </div>
+  </div>
+
+  <div id="charts-container">
+    <div id="bubble-map-container"></div>
+    <div id="line-chart-dynamic-container"></div>
+    <div id="scatter-plot-container"></div>
+    <div id="bar-chart-container"></div>
+  </div>
+
+  <script type="module">
+    import bubbleMap from "./bubbleMap.js";
+    import lineChartDynamic from "./lineChartDynamic.js";
+    import updateLineChart from "./lineChartUpdate.js";
+    import barChart from "./barChart.js";
+    import updateBarChart from "./updateBarChart.js";
+    import scatterPlot from "./scatterPlot.js";
+
+    // Initialize line chart
+    updateLineChart("India", "total_cases");
+    // Initialize bubble chart map
+    bubbleMap();
+    // Initialize bar chart
+    updateBarChart("total_cases");
+    // Initialize scatter plot
+    scatterPlot();
+
+    // Buttons
+    document.getElementById("total-cases-btn").addEventListener("click", () => {
+      handleButtonClick("total-cases-btn");
+      updateBarChart("total_cases");
+      updateLineChart(undefined, "total_cases");
+    });
+
+    document
+      .getElementById("total-vaccinations-btn")
+      .addEventListener("click", () => {
+        handleButtonClick("total-vaccinations-btn");
+        updateBarChart("total_vaccinations");
+        updateLineChart(undefined, "total_vaccinations");
+      });
+
+    document
+      .getElementById("total-boosters-btn")
+      .addEventListener("click", () => {
+        handleButtonClick("total-boosters-btn");
+        updateBarChart("total_boosters");
+        updateLineChart(undefined, "total_boosters");
+      });
+
+    document
+      .getElementById("total-deaths-btn")
+      .addEventListener("click", () => {
+        handleButtonClick("total-deaths-btn");
+        updateBarChart("total_deaths");
+        updateLineChart(undefined, "total_deaths");
+      });
+
+    document
+      .getElementById("total-cases-per-million-btn")
+      .addEventListener("click", () => {
+        handleButtonClick("total-cases-per-million-btn");
+        updateBarChart("total_cases_per_million");
+        updateLineChart(undefined, "total_cases_per_million");
+      });
+
+    document
+      .getElementById("people-vaccinated-btn")
+      .addEventListener("click", () => {
+        handleButtonClick("people-vaccinated-btn");
+        updateBarChart("people_vaccinated");
+        updateLineChart(undefined, "people_vaccinated");
+      });
+
+    document
+      .getElementById("people-fully-vaccinated-btn")
+      .addEventListener("click", () => {
+        handleButtonClick("people-fully-vaccinated-btn");
+        updateBarChart("people_fully_vaccinated");
+        updateLineChart(undefined, "people_fully_vaccinated");
+      });
+
+    document
+      .getElementById("new-cases-smoothed-btn")
+      .addEventListener("click", () => {
+        handleButtonClick("new-cases-smoothed-btn");
+        updateBarChart("new_cases_smoothed");
+        updateLineChart(undefined, "new_cases_smoothed");
+      });
+
+    document
+      .getElementById("new-deaths-smoothed-btn")
+      .addEventListener("click", () => {
+        handleButtonClick("new-deaths-smoothed-btn");
+        updateBarChart("new_deaths_smoothed");
+        updateLineChart(undefined, "new_deaths_smoothed");
+      });
+
+    function handleButtonClick(buttonId) {
+      // Get all buttons in the button container
+      const buttons = document.querySelectorAll("#button-container button");
+
+      // Remove the 'selected' class from all buttons
+      buttons.forEach((button) => button.classList.remove("selected"));
+
+      // Add the 'selected' class to the clicked button
+      document.getElementById(buttonId).classList.add("selected");
+    }
+
+    // ...
+  </script>
+</body>
